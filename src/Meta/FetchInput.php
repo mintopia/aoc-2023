@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class FetchInput extends Command
@@ -117,7 +118,8 @@ class FetchInput extends Command
             $cookie = $_ENV['AOC_SESSION_COOKIE'] ?? null;
         }
         if (!$cookie) {
-            $cookie = $this->io->askQuestion("Please enter your adventofcode.com session cookie value");
+            $question = new Question('Please enter your adventofcode.com session cookie value');
+            $cookie = $this->io->askQuestion($question);
         }
         if (!$cookie) {
             return null;
