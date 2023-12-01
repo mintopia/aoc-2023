@@ -5,7 +5,7 @@ use Mintopia\Aoc2023\Helpers\Result;
 
 class Day1 extends Day
 {
-    protected const TITLE = 'Title';
+    protected const TITLE = 'Trebuchet?!';
 
     protected function part1(): Result
     {
