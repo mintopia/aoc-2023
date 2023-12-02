@@ -17,6 +17,7 @@ class RunAll extends Command
     {
         $this->setDescription("Run all days of Advent of Code");
         $this->addOption('test', 't',  InputOption::VALUE_NONE, 'Use test data');
+        $this->addOption('noperformance', null, InputOption::VALUE_NONE, 'No performance output');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
