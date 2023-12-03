@@ -61,18 +61,13 @@ class Day3 extends Day
     {
         $numbers = [];
         foreach (range($y - 1, $y + 1) as $iY) {
-            $checked = [];
             foreach (range($x - 1, $x + 1) as $iX) {
-                if (in_array($iX, $checked)) {
-                    continue;
-                }
                 $chr = $this->data[$iY][$iX];
                 if (!is_numeric($chr)) {
                     continue;
                 } else {
-                    [$num, $range] = $this->expandNumber($iX, $iY);
-                    $checked = array_merge($checked, $range);
-                    $numbers[] = $num;
+                    [$num, $location] = $this->expandNumber($iX, $iY);
+                    $numbers[$location] = $num;
                 }
             }
         }
@@ -85,12 +80,12 @@ class Day3 extends Day
 
     protected function expandNumber(int $iX, int $y): array
     {
-        $checked = [$iX];
+        $start = $iX;
         $number = $this->data[$y][$iX];
         for($x = $iX - 1; $x >= 0; $x--) {
             $char = $this->data[$y][$x];
             if (is_numeric($char)) {
-                $checked[] = $x;
+                $start = $x;
                 $number = $char . $number;
             } else {
                 break;
@@ -99,14 +94,13 @@ class Day3 extends Day
         for($x = $iX + 1; $x < count($this->data[$y]); $x++) {
             $char = $this->data[$y][$x];
             if (is_numeric($char)) {
-                $checked[] = $x;
                 $number .= $char;
             } else {
                 break;
             }
         }
 
-        return [(int)$number, $checked];
+        return [(int)$number, "{$start},{$y}"];
     }
 
     protected function checkIsPartNumber(int $x, int $y): bool
