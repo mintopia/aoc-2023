@@ -85,7 +85,6 @@ class MakeDay extends Command
 
     protected function copyFiles(array $mapping, int $day): bool
     {
-        print_r($mapping);
         foreach ($mapping as $source => $destination) {
             $sourceFilename = realpath(__DIR__ . "/{$source}");
             $destinationFilename = __DIR__ . "/../../{$destination}";
