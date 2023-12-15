@@ -185,6 +185,30 @@ abstract class Day extends Command
         $this->data = $this->getArrayFromInputFile();
     }
 
+    protected function loadGridFromData(int $length = 1): void
+    {
+        $data = $this->getArrayFromInputFile();
+        $this->data = array_map(function ($line) use ($length) {
+            return str_split($line, $length);
+        }, $data);
+    }
+
+    protected function sparseMap(array $data, array $chars = ['.', ' ']): array
+    {
+        $map = [];
+        foreach ($data as $row => $cols) {
+            foreach ($cols as $col => $char) {
+                if (!in_array($char, $chars)) {
+                    if (!isset($map[$row])) {
+                        $map[$row] = [];
+                    }
+                    $map[$row][$col] = $char;
+                }
+            }
+        }
+        return $map;
+    }
+
     protected function getArrayFromInputFile(): array
     {
         $inputFilename = $this->getInputFilename();
